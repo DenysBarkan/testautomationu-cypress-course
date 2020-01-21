@@ -1,40 +1,36 @@
 /// <reference types="cypress" />
-import {
-  navigate,
-  addTodo,
-  validateTodoText,
-  toggleTodo,
-  clearCompleted,
-  validateTodoCompletedState,
-  validateToggleState,
-  validateNumberOfTodosShown,
-} from '../page-objects/todo-page'
+
+import { TodoPage } from '../page-objects/todo-page'
 
 describe('todo actions', () => {
-  beforeEach(() => {
-    navigate()
+  const todoPage = new TodoPage();
 
-    addTodo('Clean room')
-  })
+  beforeEach(() => {
+    todoPage.navigate();
+
+    todoPage.addTodo('Clean room');
+  });
 
   it('should add a new todo to the list', () => {
-    validateTodoText(0, 'Clean room')
+    todoPage.validateTodoText(0, 'Clean room');
 
-    validateToggleState(0, false)
-  })
+    todoPage.validateToggleState(0, false);
+  });
 
   describe('toggling todos', () => {
+
     it('should toggle test correctly', () => {
-      toggleTodo(0)
-      validateTodoCompletedState(0, true)
-    })
+      todoPage.toggleTodo(0);
+      todoPage.validateTodoCompletedState(0, true);
+    });
 
     it('should clear completed', () => {
-      toggleTodo(0)
+      todoPage.toggleTodo(0);
 
-      clearCompleted()
+      todoPage.clearCompleted();
 
-      validateNumberOfTodosShown(0)
-    })
-  })
-})
+      todoPage.validateNumberOfTodosShown(0);
+    });
+  });
+
+});
